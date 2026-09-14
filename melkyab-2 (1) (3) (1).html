@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ملک‌یاب — خرید و فروش خانه و زمین</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --clay: #b5533c;
+    --clay-dark: #8f3f2c;
+    --turquoise: #1f7a72;
+    --turquoise-light: #e7f3f1;
+    --sand: #f6f1e7;
+    --ink: #2b241d;
+    --ink-soft: #6b6255;
+    --line: #e6ddcd;
+    --white: #ffffff;
+    --radius: 14px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Vazirmatn',sans-serif;background:var(--sand);color:var(--ink);}
+  a{color:inherit;}
+  header{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 28px;background:var(--white);border-bottom:1px solid var(--line);
+    position:sticky;top:0;z-index:10;
+  }
+  #brand{font-weight:800;font-size:22px;color:var(--turquoise);cursor:pointer;display:flex;align-items:center;gap:6px;}
+  #brand::before{content:"◆";color:var(--clay);}
+  nav.main-nav{display:flex;gap:6px;align-items:center;}
+  nav.main-nav button{
+    background:none;border:none;font-family:inherit;font-size:15px;color:var(--ink-soft);
+    padding:8px 14px;border-radius:8px;cursor:pointer;
+  }
+  nav.main-nav button:hover{background:var(--turquoise-light);color:var(--turquoise);}
+  #nav-user{display:flex;gap:8px;align-items:center;}
+  .user-chip{font-size:13px;background:var(--turquoise-light);color:var(--turquoise);padding:6px 12px;border-radius:999px;}
+
+  .btn{font-family:inherit;border:none;border-radius:10px;padding:12px 22px;font-size:15px;font-weight:600;cursor:pointer;transition:transform .12s, opacity .12s;}
+  .btn:active{transform:scale(0.97);}
+  .btn.primary{background:var(--clay);color:var(--white);}
+  .btn.primary:hover{background:var(--clay-dark);}
+  .btn.ghost{background:transparent;color:var(--turquoise);border:1.5px solid var(--turquoise);}
+  .btn.ghost:hover{background:var(--turquoise-light);}
+  .btn.small{padding:8px 14px;font-size:13px;}
+  .btn.danger{background:#fff;color:#b5533c;border:1.5px solid #b5533c;}
+  .btn.danger:hover{background:#fdf0ed;}
+  .btn:disabled{opacity:.5;cursor:not-allowed;}
+
+  main{max-width:1080px;margin:0 auto;padding:0 20px 100px;}
+
+  .hero{
+    text-align:center;padding:100px 20px 80px;
+    position:relative;overflow:hidden;
+    border-radius:0 0 36px 36px;
+    min-height:460px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  }
+  .hero-bg{
+    position:absolute;inset:0;z-index:0;
+    background-image:url('https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=1600&auto=format&fit=crop&q=80');
+    background-size:cover;background-position:center 40%;
+    filter:brightness(0.45) saturate(1.1);
+    transform:scale(1.03);
+  }
+  .hero-overlay{
+    position:absolute;inset:0;z-index:1;
+    background:linear-gradient(to bottom, rgba(20,14,8,0.30) 0%, rgba(20,14,8,0.55) 60%, rgba(20,14,8,0.78) 100%);
+  }
+  .hero > *{position:relative;z-index:2;}
+  .hero h1{font-size:40px;font-weight:800;margin:0 0 14px;color:#fff;text-shadow:0 2px 18px rgba(0,0,0,0.6);line-height:1.35;}
+  .hero p{font-size:16px;color:rgba(255,255,255,0.84);max-width:520px;margin:0 auto 32px;text-shadow:0 1px 8px rgba(0,0,0,0.4);}
+  .hero-tag{
+    display:inline-block;background:rgba(255,255,255,0.15);backdrop-filter:blur(8px);
+    color:#fff;font-size:13px;padding:7px 16px;border-radius:999px;
+    border:1px solid rgba(255,255,255,0.25);margin-bottom:20px;letter-spacing:.3px;
+  }
+  .hero-search{display:flex;gap:8px;max-width:540px;margin:0 auto;width:100%;}
+  .hero-search input{
+    flex:1;padding:16px 20px;border-radius:12px;border:none;
+    font-family:inherit;font-size:15px;
+    background:rgba(255,255,255,0.95);color:var(--ink);
+    box-shadow:0 4px 24px rgba(0,0,0,0.25);
+  }
+  .hero-search input::placeholder{color:#999;}
+  .hero-search input:focus{outline:2px solid var(--clay);}
+  .btn.hero-btn{
+    background:var(--clay);color:#fff;border-radius:12px;
+    padding:16px 26px;font-size:15px;white-space:nowrap;
+    box-shadow:0 4px 20px rgba(181,83,60,0.45);
+  }
+  .btn.hero-btn:hover{background:var(--clay-dark);}
+  .hero-stats{display:flex;align-items:center;gap:24px;margin-top:32px;color:rgba(255,255,255,0.75);font-size:13px;}
+  .hero-stats div{display:flex;flex-direction:column;align-items:center;gap:2px;}
+  .hero-stats b{font-size:22px;color:#fff;font-weight:700;}
+  .hero-stats .divider{width:1px;height:36px;background:rgba(255,255,255,0.25);}
+
+  .section{padding:48px 0 8px;}
+  .section.narrow{max-width:520px;margin:0 auto;}
+  .section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+  .section h2{font-size:24px;margin:0 0 20px;}
+
+  .search-bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px;background:var(--white);padding:16px;border-radius:var(--radius);border:1px solid var(--line);}
+  .search-bar input, .search-bar select{padding:11px 14px;border-radius:8px;border:1.5px solid var(--line);font-family:inherit;font-size:14px;background:var(--sand);}
+  .search-bar input{flex:2;min-width:180px;}
+  .search-bar select{flex:1;min-width:130px;}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;}
+  .card{background:var(--white);border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);cursor:pointer;transition:box-shadow .15s, transform .15s;}
+  .card:hover{box-shadow:0 8px 24px rgba(43,36,29,0.10);transform:translateY(-2px);}
+  .card-img{height:170px;background-size:cover;background-position:center;position:relative;}
+  .badge{position:absolute;top:10px;right:10px;background:var(--turquoise);color:#fff;font-size:12px;padding:4px 10px;border-radius:999px;}
+  .card-body{padding:14px 16px 18px;}
+  .card-body h3{font-size:16px;margin:0 0 6px;line-height:1.5;}
+  .loc{color:var(--ink-soft);font-size:13px;margin:0 0 8px;}
+  .card-meta{display:flex;gap:12px;font-size:13px;color:var(--ink-soft);margin-bottom:8px;}
+  .price{font-weight:700;color:var(--clay);font-size:15px;margin:0;}
+  .price.big{font-size:24px;}
+
+  .empty{color:var(--ink-soft);font-size:14px;padding:20px 0;}
+  .error{color:#b5533c;font-size:13px;margin-top:6px;}
+  .success{color:var(--turquoise);font-weight:600;margin-top:14px;}
+  .hint{color:var(--ink-soft);font-size:12px;margin:4px 0 0;}
+  .hidden{display:none !important;}
+
+  .install-overlay{position:fixed;inset:0;background:rgba(20,14,8,0.55);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;}
+  .install-modal{background:var(--white);border-radius:var(--radius);max-width:340px;width:100%;padding:26px 22px;text-align:center;box-shadow:0 12px 40px rgba(0,0,0,0.25);}
+  .install-modal .install-icon{width:56px;height:56px;border-radius:16px;background:var(--turquoise);color:#fff;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:800;margin:0 auto 14px;}
+  .install-modal h3{margin:0 0 8px;font-size:17px;}
+  .install-modal p{margin:0 0 20px;color:var(--ink-soft);font-size:13.5px;line-height:1.8;}
+  .install-modal .install-actions{display:flex;gap:10px;}
+  .install-modal .install-actions .btn{flex:1;}
+
+  .details{padding:32px 0;}
+  .gallery{display:flex;gap:10px;overflow-x:auto;margin:20px 0;}
+  .gallery-item{position:relative;min-width:280px;}
+  .gallery-img{width:280px;height:220px;border-radius:var(--radius);background-size:cover;background-position:center;}
+  .gallery-remove{
+    position:absolute;top:8px;left:8px;width:26px;height:26px;border-radius:50%;
+    background:rgba(20,14,8,0.65);color:#fff;border:none;cursor:pointer;font-size:14px;line-height:1;
+  }
+  .gallery-remove:hover{background:rgba(181,83,60,0.9);}
+  .details-body{background:var(--white);padding:28px;border-radius:var(--radius);border:1px solid var(--line);}
+  .details-body h1{font-size:26px;margin:10px 0 6px;}
+  .specs{display:flex;gap:20px;flex-wrap:wrap;margin:20px 0;padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .specs div{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--ink-soft);}
+  .specs b{font-size:15px;color:var(--ink);}
+  .desc{line-height:1.9;color:var(--ink-soft);}
+  .actions{display:flex;gap:10px;margin:24px 0;flex-wrap:wrap;}
+
+  .upload-box{background:var(--sand);border:1.5px dashed var(--line);border-radius:var(--radius);padding:16px;margin:20px 0;}
+  .upload-box h3{margin:0 0 10px;font-size:15px;}
+  .upload-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+  .upload-row input[type=file]{font-family:inherit;font-size:13px;}
+
+  .permission-box{background:var(--turquoise-light);border-radius:var(--radius);padding:16px;margin:16px 0;}
+  .permission-box h3{margin:0 0 10px;font-size:15px;color:var(--turquoise);}
+  .allow-list{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;}
+  .allow-item{display:flex;justify-content:space-between;align-items:center;background:#fff;padding:8px 12px;border-radius:8px;font-size:13px;}
+  .allow-add{display:flex;gap:8px;}
+  .allow-add input{flex:1;padding:9px 12px;border-radius:8px;border:1.5px solid var(--line);font-family:inherit;font-size:13px;}
+
+  .chat-box{background:var(--turquoise-light);border-radius:var(--radius);padding:16px;margin-bottom:24px;}
+  .chat-thread{display:flex;flex-direction:column;gap:10px;margin-bottom:12px;max-height:240px;overflow-y:auto;}
+  .chat-msg{background:var(--white);padding:8px 12px;border-radius:10px;max-width:75%;}
+  .chat-msg b{font-size:12px;color:var(--turquoise);display:block;margin-bottom:2px;}
+  .chat-msg p{margin:0;font-size:14px;}
+  .chat-msg.me{align-self:flex-start;background:var(--clay);color:#fff;}
+  .chat-msg.me b{color:#ffe9e0;}
+  .chat-form, .comment-form{display:flex;gap:8px;}
+  .chat-form input, .comment-form textarea{flex:1;padding:10px 14px;border-radius:8px;border:1.5px solid var(--line);font-family:inherit;}
+  .comment-form{margin-top:12px;}
+  .comment-form textarea{min-height:44px;resize:vertical;}
+
+  .comments{display:flex;flex-direction:column;gap:12px;margin:16px 0;}
+  .comment{background:var(--sand);border-radius:10px;padding:12px 14px;}
+  .comment b{font-size:13px;}
+  .comment span{font-size:11px;color:var(--ink-soft);margin-inline-start:8px;}
+  .comment p{margin:6px 0 0;font-size:14px;}
+
+  .form{display:flex;flex-direction:column;gap:16px;background:var(--white);padding:26px;border-radius:var(--radius);border:1px solid var(--line);}
+  .form label{display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--ink-soft);font-weight:600;}
+  .form input, .form select, .form textarea{
+    padding:12px 14px;border-radius:8px;border:1.5px solid var(--line);font-family:inherit;font-size:14px;background:var(--sand);color:var(--ink);
+  }
+  .form textarea{min-height:90px;resize:vertical;}
+  .form input:focus, .form select:focus, .form textarea:focus{outline:none;border-color:var(--turquoise);}
+
+  .account-card{background:var(--white);padding:20px;border-radius:var(--radius);border:1px solid var(--line);margin-bottom:24px;}
+  .auth-tabs{display:flex;gap:8px;margin-bottom:18px;}
+  .my-listings{display:flex;flex-direction:column;gap:10px;margin-bottom:28px;}
+  .my-listing-row{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;}
+  .my-listing-info{cursor:pointer;display:flex;flex-direction:column;gap:4px;}
+  .my-listing-info span{font-size:13px;color:var(--ink-soft);}
+  .my-listing-actions{display:flex;gap:8px;flex-shrink:0;}
+  .my-conversations{display:flex;flex-direction:column;gap:8px;}
+  .conversation-row{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:12px 16px;cursor:pointer;display:flex;flex-direction:column;gap:2px;}
+  .conversation-row:hover{border-color:var(--turquoise);}
+  .conversation-row b{font-size:14px;}
+  .conversation-row .hint{font-size:12.5px;color:var(--ink-soft);}
+
+  .bottom-nav{
+    position:fixed;bottom:0;right:0;left:0;z-index:100;
+    background:var(--white);border-top:1.5px solid var(--line);
+    display:flex;justify-content:space-around;align-items:stretch;padding:0;
+    box-shadow:0 -4px 24px rgba(43,36,29,0.10);
+  }
+  .bottom-nav a{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:5px;padding:10px 6px 12px;flex:1;cursor:pointer;
+    color:var(--ink-soft);text-decoration:none;font-size:11px;font-weight:600;letter-spacing:.3px;
+    border:none;background:none;font-family:inherit;transition:color .15s;position:relative;
+  }
+  .bottom-nav a::before{
+    content:'';position:absolute;top:0;right:10%;left:10%;height:3px;border-radius:0 0 4px 4px;
+    background:var(--clay);transform:scaleX(0);transition:transform .2s;
+  }
+  .bottom-nav a.active{color:var(--clay);}
+  .bottom-nav a.active::before{transform:scaleX(1);}
+  .bottom-nav a svg{width:26px;height:26px;stroke-width:1.7;}
+
+  @media (max-width:640px){
+    header{padding:12px 16px;flex-wrap:wrap;gap:10px;}
+    nav.main-nav{display:none;}
+    .hero h1{font-size:26px;}
+    .hero-search{flex-direction:column;}
+    .details-body{padding:18px;}
+  }
+  @media (min-width:641px){
+    .bottom-nav{display:none;}
+  }
+</style>
+<link rel="manifest" id="pwaManifest">
+</head>
+<body>
+  <div id="installOverlay" class="install-overlay hidden">
+    <div class="install-modal">
+      <div class="install-icon">◆</div>
+      <h3>نصب ملک‌یاب روی دستگاه شما</h3>
+      <p>می‌خواهید ملک‌یاب مثل یک اپلیکیشن روی گوشی یا کامپیوترتان نصب شود تا سریع‌تر و بدون مرورگر بازش کنید؟</p>
+      <div class="install-actions">
+        <button class="btn ghost" onclick="declineInstall()">فعلاً نه</button>
+        <button class="btn primary" onclick="acceptInstall()">بله، نصب کن</button>
+      </div>
+    </div>
+  </div>
+  <header>
+    <div id="brand">ملک‌یاب</div>
+    <nav class="main-nav">
+      <button id="nav-search">جست‌وجو</button>
+      <button id="nav-new">ثبت ملک</button>
+      <button id="nav-consult">مشاوره</button>
+      <button id="nav-account">حساب من</button>
+    </nav>
+    <div id="nav-user"></div>
+  </header>
+
+  <main id="app"></main>
+
+  <nav class="bottom-nav" id="bottomNav">
+    <a id="bn-home" onclick="navigate('home')" title="خانه">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/>
+        <path d="M9 21V12h6v9"/>
+      </svg>
+      خانه
+    </a>
+    <a id="bn-search" onclick="navigate('search')" title="جست‌وجو">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="11" cy="11" r="7"/>
+        <line x1="16.5" y1="16.5" x2="22" y2="22"/>
+      </svg>
+      جست‌وجو
+    </a>
+    <a id="bn-new" onclick="navigate('new-listing')" title="ثبت ملک">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="9"/>
+        <path d="M12 8v8M8 12h8"/>
+      </svg>
+      ثبت ملک
+    </a>
+    <a id="bn-chat" onclick="currentUser ? navigate('account') : navigate('login')" title="گفت‌وگو">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+      </svg>
+      گفت‌وگو
+    </a>
+    <a id="bn-consult" onclick="navigate('consult')" title="مشاوره">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 3.09 4.18 2 2 0 0 1 5.09 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L9.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+      </svg>
+      مشاوره
+    </a>
+    <a id="bn-comments" onclick="requireLoginNav('search','comments')" title="نظرات">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17 10H3M21 6H3M21 14H3M17 18H3"/>
+      </svg>
+      نظرات
+    </a>
+    <a id="bn-account" onclick="navigate('account')" title="حساب من">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="8" r="4"/>
+        <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+      </svg>
+      حساب من
+    </a>
+  </nav>
+
+<script>
+/* ============================================================
+   ملک‌یاب — منطق برنامه (نسخه دمو، کاملاً سمت کاربر)
+   داده‌ها در localStorage نگهداری می‌شوند و نیازی به سرور نیست.
+   هر آگهی یک "مالک" (ownerId) و یک فهرست "افراد مجاز به آپلود عکس"
+   (allowedUploaders) دارد. فقط مالک آگهی و افرادی که مالک به آن‌ها
+   اجازه داده باشد می‌توانند برای آن ملک عکس اضافه یا حذف کنند.
+   ============================================================ */
+
+const STORAGE_KEY = "melkyab_demo_v2";
+
+const SEED_DATA = {
+  users: [
+    { id: "u1", name: "علی محمدی", role: "agent", phone: "0912-000-1111", password: "1111" },
+    { id: "u2", name: "سارا احمدی", role: "seller", phone: "0912-000-2222", password: "2222" },
+    { id: "u3", name: "رضا کریمی", role: "buyer", phone: "0912-000-3333", password: "3333" }
+  ],
+  properties: [],
+  messages: [],
+  comments: [],
+  consultations: []
+};
+
+/* ---------------- حالت (State) ---------------- */
+let DB = loadDB();
+let currentUser = loadCurrentUser();
+let route = { page: "home", propertyId: null };
+
+function loadDB() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      // اطمینان از وجود فیلد allowedUploaders روی آگهی‌های قدیمی‌تر
+      parsed.properties?.forEach(p => { if (!p.allowedUploaders) p.allowedUploaders = []; });
+      return parsed;
+    }
+  } catch (e) { /* ignore corrupted storage */ }
+  const fresh = structuredClone(SEED_DATA);
+  saveDB(fresh);
+  return fresh;
+}
+function saveDB(db = DB) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
+  } catch (e) {
+    alert("حافظه مرورگر پر شده است. لطفاً چند عکس قدیمی‌تر را حذف کنید و دوباره تلاش کنید.");
+  }
+}
+function loadCurrentUser() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY + "_user");
+    return raw ? JSON.parse(raw) : null;
+  } catch (e) { return null; }
+}
+function saveCurrentUser(u) {
+  // این تابع همیشه currentUser را در حافظهٔ برنامه (متغیر) تنظیم می‌کند تا حتی اگر
+  // ذخیره‌سازی در localStorage به هر دلیلی (مثلاً حالت ناشناس/Private مرورگر یا پر بودن
+  // حافظه) با خطا مواجه شود، ورود/ثبت‌نام کاربر برای همین بازدید انجام‌شده باقی بماند
+  // و دکمهٔ «ساخت حساب» / «ورود» بدون هیچ واکنشی متوقف نشود.
+  currentUser = u;
+  try {
+    if (u) localStorage.setItem(STORAGE_KEY + "_user", JSON.stringify(u));
+    else localStorage.removeItem(STORAGE_KEY + "_user");
+  } catch (e) {
+    console.warn("ذخیرهٔ کاربر جاری در localStorage ممکن نشد؛ نشست فقط برای همین بازدید معتبر است.", e);
+  }
+}
+
+function uid(prefix) {
+  return prefix + "_" + Math.random().toString(36).slice(2, 9);
+}
+function toman(n) {
+  if (n == null) return "—";
+  return new Intl.NumberFormat("fa-IR").format(n) + " تومان";
+}
+function ownerName(ownerId) {
+  const u = DB.users.find(u => u.id === ownerId);
+  return u ? u.name : "ناشناس";
+}
+function escapeHtml(s) {
+  return (s || "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+
+/* ---------------- فشرده‌سازی عکس قبل از ذخیره در localStorage ---------------- */
+// چون عکس‌های اورجینال دوربین گوشی چند مگابایتی هستند و localStorage محدود است
+// (معمولاً ۵-۱۰ مگابایت کل)، هر عکس قبل از ذخیره کوچک و فشرده می‌شود.
+function compressImage(file, maxWidth = 900, quality = 0.72) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = () => reject(reader.error);
+    reader.onload = () => {
+      const img = new Image();
+      img.onerror = () => {
+        // مرورگر نتوانست این فایل را به‌صورت تصویر رمزگشایی کند
+        // (مثلاً عکس‌های HEIC/HEIC دوربین آیفون که خیلی از مرورگرها نمی‌شناسند).
+        // به‌جای حذف کامل عکس، همان فایل اصلی را بدون فشرده‌سازی استفاده می‌کنیم
+        // تا کاربر بتواند عکسش را آپلود کند.
+        resolve(reader.result);
+      };
+      img.onload = () => {
+        try {
+          const scale = Math.min(1, maxWidth / img.width);
+          const w = Math.max(1, Math.round(img.width * scale));
+          const h = Math.max(1, Math.round(img.height * scale));
+          const canvas = document.createElement("canvas");
+          canvas.width = w;
+          canvas.height = h;
+          canvas.getContext("2d").drawImage(img, 0, 0, w, h);
+          resolve(canvas.toDataURL("image/jpeg", quality));
+        } catch (e) {
+          // اگر فشرده‌سازی با canvas به هر دلیلی شکست خورد، باز هم فایل اصلی را برمی‌گردانیم
+          resolve(reader.result);
+        }
+      };
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+async function compressImages(fileList) {
+  const files = Array.from(fileList || []);
+  const out = [];
+  for (const f of files) {
+    try { out.push(await compressImage(f)); } catch (e) { /* رد شدن از فایل خراب */ }
+  }
+  return out;
+}
+
+/* ---------------- مجوز آپلود عکس ---------------- */
+// فقط مالک آگهی، یا کاربری که مالک صراحتاً به او اجازه داده، می‌تواند عکس اضافه/حذف کند.
+function canManageImages(p) {
+  if (!currentUser) return false;
+  if (currentUser.id === p.ownerId) return true;
+  return (p.allowedUploaders || []).includes(currentUser.id);
+}
+
+/* ---------------- مسیریابی ساده ---------------- */
+function navigate(page, propertyId = null) {
+  route = { page, propertyId };
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  render();
+}
+
+/* ---------------- رندر ---------------- */
+const app = document.getElementById("app");
+
+function render() {
+  renderHeader();
+  switch (route.page) {
+    case "home": return renderHome();
+    case "search": return renderSearch();
+    case "details": return renderDetails(route.propertyId);
+    case "new-listing": return renderNewListing();
+    case "edit-listing": return renderEditListing(route.propertyId);
+    case "consult": return renderConsult();
+    case "account": return renderAccount();
+    case "login": return renderLogin();
+    default: return renderHome();
+  }
+}
+
+function renderHeader() {
+  const nav = document.getElementById("nav-user");
+  if (currentUser) {
+    nav.innerHTML = `
+      <span class="user-chip">${escapeHtml(currentUser.name)} · ${roleLabel(currentUser.role)}</span>
+      <button class="btn ghost small" onclick="logout()">خروج</button>`;
+  } else {
+    nav.innerHTML = `<button class="btn primary small" onclick="navigate('login')">ورود</button>`;
+  }
+}
+function roleLabel(r) {
+  return r === "agent" ? "املاکی" : r === "seller" ? "فروشنده" : "مشتری";
+}
+function logout() { saveCurrentUser(null); render(); }
+
+function requireLogin() {
+  if (!currentUser) {
+    navigate("login");
+    return false;
+  }
+  return true;
+}
+
+/* ---- صفحه اصلی ---- */
+function renderHome() {
+  const featured = DB.properties.slice(0, 3);
+  app.innerHTML = `
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-tag">🏡 پلتفرم تخصصی خرید و فروش ملک</div>
+      <h1>خانه یا زمین بعدی‌ات را<br>اینجا پیدا کن</h1>
+      <p>جست‌وجو کن، تصاویر و جزئیات را ببین، مستقیم با فروشنده یا املاکی گفت‌وگو کن — بدون نیاز به مراجعه اولیه.</p>
+      <form class="hero-search" onsubmit="event.preventDefault(); const q=document.getElementById('heroQ').value; navigate('search'); document.getElementById('q').value=q; runSearch();">
+        <input id="heroQ" type="text" placeholder="جست‌وجو بر اساس شهر، محله یا عنوان ملک...">
+        <button class="btn hero-btn" type="submit">🔍 جست‌وجو</button>
+      </form>
+      <div class="hero-stats">
+        <div><b>${DB.properties.length}+</b><span>ملک فعال</span></div>
+        <div class="divider"></div>
+        <div><b>${DB.users.length}+</b><span>مشاور حرفه‌ای</span></div>
+        <div class="divider"></div>
+        <div><b>سریع</b><span>بدون واسطه</span></div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="section-head">
+        <h2>ملک‌های ویژه</h2>
+        <button class="btn ghost small" onclick="navigate('search')">مشاهده همه</button>
+      </div>
+      <div class="grid">${featured.map(propertyCard).join("")}</div>
+    </section>
+  `;
+}
+
+function propertyCard(p) {
+  return `
+    <article class="card" onclick="navigate('details','${p.id}')">
+      <div class="card-img" style="background-image:url('${p.images[0]}')">
+        <span class="badge">${p.type}</span>
+      </div>
+      <div class="card-body">
+        <h3>${escapeHtml(p.title)}</h3>
+        <p class="loc">📍 ${escapeHtml(p.location)}</p>
+        <div class="card-meta">
+          <span>${p.area} متر</span>
+          ${p.rooms ? `<span>${p.rooms} خواب</span>` : ""}
+        </div>
+        <p class="price">${toman(p.price)}</p>
+      </div>
+    </article>`;
+}
+
+/* ---- جست‌وجو ---- */
+function renderSearch() {
+  app.innerHTML = `
+    <section class="section">
+      <h2>جست‌وجوی ملک</h2>
+      <div class="search-bar">
+        <input id="q" type="text" placeholder="جست‌وجو بر اساس عنوان یا موقعیت...">
+        <select id="typeFilter">
+          <option value="">همه انواع</option>
+          <option value="خانه">خانه</option>
+          <option value="زمین">زمین</option>
+        </select>
+        <select id="priceFilter">
+          <option value="">همه قیمت‌ها</option>
+          <option value="0-4000000000">تا ۴ میلیارد</option>
+          <option value="4000000000-8000000000">۴ تا ۸ میلیارد</option>
+          <option value="8000000000-999999999999">بالای ۸ میلیارد</option>
+        </select>
+        <button class="btn primary" onclick="runSearch()">اعمال فیلتر</button>
+      </div>
+      <div id="results" class="grid"></div>
+    </section>`;
+  runSearch();
+}
+function runSearch() {
+  const q = (document.getElementById("q")?.value || "").trim();
+  const type = document.getElementById("typeFilter")?.value || "";
+  const priceRange = document.getElementById("priceFilter")?.value || "";
+  let results = DB.properties.filter(p => {
+    const matchQ = !q || p.title.includes(q) || p.location.includes(q);
+    const matchType = !type || p.type === type;
+    let matchPrice = true;
+    if (priceRange) {
+      const [min, max] = priceRange.split("-").map(Number);
+      matchPrice = p.price >= min && p.price <= max;
+    }
+    return matchQ && matchType && matchPrice;
+  });
+  const el = document.getElementById("results");
+  el.innerHTML = results.length
+    ? results.map(propertyCard).join("")
+    : `<p class="empty">هیچ ملکی با این مشخصات پیدا نشد. فیلترها را تغییر دهید.</p>`;
+}
+
+/* ---- جزئیات ملک ---- */
+function renderDetails(id) {
+  const p = DB.properties.find(x => x.id === id);
+  if (!p) { app.innerHTML = `<p class="empty">این ملک یافت نشد.</p>`; return; }
+  const comments = DB.comments.filter(c => c.propertyId === id);
+  const manage = canManageImages(p);
+  const isOwner = currentUser && currentUser.id === p.ownerId;
+
+  app.innerHTML = `
+    <section class="details">
+      <button class="btn ghost small" onclick="navigate('search')">← بازگشت به نتایج</button>
+      <div class="gallery" id="gallery">
+        ${p.images.map((img, i) => `
+          <div class="gallery-item">
+            <div class="gallery-img" style="background-image:url('${img}')"></div>
+            ${manage ? `<button class="gallery-remove" title="حذف عکس" onclick="removeImage('${p.id}', ${i})">✕</button>` : ""}
+          </div>`).join("")}
+        ${p.images.length === 0 ? `<p class="empty">هنوز عکسی برای این ملک ثبت نشده.</p>` : ""}
+      </div>
+
+      ${manage ? `
+        <div class="upload-box">
+          <h3>📷 افزودن عکس به این آگهی</h3>
+          <div class="upload-row">
+            <input id="imgUpload" type="file" accept="image/*" multiple onchange="handleImageUpload('${p.id}', event)">
+          </div>
+          <p class="hint">شما یا اجازه‌داده‌اید. عکس‌ها فقط در همین مرورگر ذخیره می‌شوند.</p>
+          <p id="uploadStatus" class="hint"></p>
+        </div>` : ""}
+
+      <div class="details-body">
+        <span class="badge">${p.type}</span>
+        <h1>${escapeHtml(p.title)}</h1>
+        <p class="loc">📍 ${escapeHtml(p.location)}</p>
+        <p class="price big">${toman(p.price)}</p>
+        <div class="specs">
+          <div><span>متراژ</span><b>${p.area} متر</b></div>
+          ${p.rooms ? `<div><span>تعداد خواب</span><b>${p.rooms}</b></div>` : ""}
+          ${p.yearBuilt ? `<div><span>سال ساخت</span><b>${p.yearBuilt}</b></div>` : ""}
+          <div><span>وضعیت</span><b>${p.status}</b></div>
+        </div>
+        <h3>توضیحات</h3>
+        <p class="desc">${escapeHtml(p.description)}</p>
+        <h3>فروشنده / مشاور املاک</h3>
+        <p>${escapeHtml(ownerName(p.ownerId))} · ${roleLabel((DB.users.find(u => u.id === p.ownerId) || {}).role)}${!isOwner && (DB.users.find(u => u.id === p.ownerId) || {}).phone ? ` · ${escapeHtml((DB.users.find(u => u.id === p.ownerId) || {}).phone)}` : ""}</p>
+        <div class="actions">
+          ${!isOwner ? `<button class="btn primary" onclick="openChat('${p.id}')">💬 گفت‌وگو با فروشنده</button>` : `<p class="hint">این آگهی متعلق به شماست.</p>`}
+          <button class="btn ghost" onclick="navigate('consult')">☎ درخواست مشاوره از املاکی</button>
+        </div>
+
+        ${isOwner ? renderPermissionBox(p) : ""}
+
+        <div id="chatBox" class="chat-box hidden"></div>
+
+        <h3>نظرات و دیدگاه‌ها</h3>
+        <div class="comments">
+          ${comments.length ? comments.map(c => `
+            <div class="comment"><b>${escapeHtml(c.userName)}</b><span>${c.date}</span><p>${escapeHtml(c.text)}</p></div>
+          `).join("") : `<p class="empty">هنوز نظری ثبت نشده است.</p>`}
+        </div>
+        <form class="comment-form" onsubmit="event.preventDefault(); addComment('${p.id}')">
+          <textarea id="commentText" placeholder="دیدگاه خود را بنویسید..." required></textarea>
+          <button class="btn primary small" type="submit">ثبت نظر</button>
+        </form>
+      </div>
+    </section>`;
+}
+
+/* ---- مدیریت افراد مجاز به آپلود عکس (فقط برای مالک آگهی) ---- */
+function renderPermissionBox(p) {
+  const allowed = (p.allowedUploaders || [])
+    .map(uidVal => DB.users.find(u => u.id === uidVal))
+    .filter(Boolean);
+  return `
+    <div class="permission-box">
+      <h3>👥 افراد مجاز به آپلود عکس برای این آگهی</h3>
+      <div class="allow-list">
+        ${allowed.length ? allowed.map(u => `
+          <div class="allow-item">
+            <span>${escapeHtml(u.name)} · ${escapeHtml(u.phone || "")}</span>
+            <button class="btn danger small" onclick="removeUploader('${p.id}', '${u.id}')">حذف دسترسی</button>
+          </div>
+        `).join("") : `<p class="hint">فعلاً فقط خودتان اجازه آپلود عکس دارید.</p>`}
+      </div>
+      <div class="allow-add">
+        <input id="allowPhone" type="text" placeholder="شماره تماس فرد موردنظر (باید قبلاً وارد سایت شده باشد)">
+        <button class="btn ghost small" onclick="addUploader('${p.id}')">افزودن دسترسی</button>
+      </div>
+      <p id="allowError" class="error hidden">کاربری با این شماره پیدا نشد. از او بخواهید ابتدا یک‌بار وارد سایت شود.</p>
+    </div>`;
+}
+
+function addUploader(propertyId) {
+  const p = DB.properties.find(x => x.id === propertyId);
+  if (!p || currentUser.id !== p.ownerId) return;
+  const phone = document.getElementById("allowPhone").value.trim();
+  const err = document.getElementById("allowError");
+  const target = DB.users.find(u => u.phone === phone);
+  if (!target) { err.classList.remove("hidden"); return; }
+  err.classList.add("hidden");
+  if (!p.allowedUploaders) p.allowedUploaders = [];
+  if (target.id === p.ownerId) return;
+  if (!p.allowedUploaders.includes(target.id)) p.allowedUploaders.push(target.id);
+  saveDB();
+  renderDetails(propertyId);
+}
+function removeUploader(propertyId, userId) {
+  const p = DB.properties.find(x => x.id === propertyId);
+  if (!p || currentUser.id !== p.ownerId) return;
+  if (!confirm("دسترسی این فرد به آپلود عکس حذف شود؟")) return;
+  p.allowedUploaders = (p.allowedUploaders || []).filter(id => id !== userId);
+  saveDB();
+  renderDetails(propertyId);
+}
+
+/* ---- آپلود / حذف عکس (فقط مالک یا افراد مجاز) ---- */
+async function handleImageUpload(propertyId, event) {
+  const p = DB.properties.find(x => x.id === propertyId);
+  if (!p || !canManageImages(p)) return;
+  const files = Array.from(event.target.files || []);
+  if (!files.length) return;
+
+  const box = document.getElementById("uploadStatus");
+  if (box) box.textContent = "در حال آماده‌سازی عکس‌ها...";
+
+  const compressed = await compressImages(files);
+  if (!compressed.length) {
+    if (box) box.textContent = "";
+    alert("هیچ‌کدام از فایل‌ها قابل پردازش نبودند.");
+    return;
+  }
+  p.images.push(...compressed);
+  saveDB();
+  renderDetails(propertyId);
+}
+function removeImage(propertyId, index) {
+  const p = DB.properties.find(x => x.id === propertyId);
+  if (!p || !canManageImages(p)) return;
+  if (!confirm("این عکس حذف شود؟")) return;
+  p.images.splice(index, 1);
+  saveDB();
+  renderDetails(propertyId);
+}
+
+function addComment(propertyId) {
+  if (!requireLogin()) return;
+  const text = document.getElementById("commentText").value.trim();
+  if (!text) return;
+  DB.comments.push({ id: uid("c"), propertyId, userName: currentUser.name, text, date: new Date().toLocaleDateString("fa-IR") });
+  saveDB();
+  renderDetails(propertyId);
+}
+
+function openChat(propertyId) {
+  if (!requireLogin()) return;
+  const box = document.getElementById("chatBox");
+  box.classList.remove("hidden");
+  renderChat(propertyId);
+}
+function renderChat(propertyId) {
+  const box = document.getElementById("chatBox");
+  const msgs = DB.messages.filter(m => m.propertyId === propertyId);
+  box.innerHTML = `
+    <div class="chat-thread">
+      ${msgs.length ? msgs.map(m => `
+        <div class="chat-msg ${m.senderId === currentUser.id ? "me" : ""}">
+          <b>${escapeHtml(m.senderName)}</b>
+          <p>${escapeHtml(m.text)}</p>
+        </div>`).join("") : `<p class="empty">گفت‌وگویی هنوز شروع نشده. پیام بده!</p>`}
+    </div>
+    <form class="chat-form" onsubmit="event.preventDefault(); sendMessage('${propertyId}')">
+      <input id="chatInput" type="text" placeholder="پیام خود را بنویسید..." required>
+      <button class="btn primary small" type="submit">ارسال</button>
+    </form>`;
+}
+function sendMessage(propertyId) {
+  const input = document.getElementById("chatInput");
+  const text = input.value.trim();
+  if (!text) return;
+  DB.messages.push({ id: uid("m"), propertyId, senderId: currentUser.id, senderName: currentUser.name, text, date: new Date().toISOString() });
+  saveDB();
+  input.value = "";
+  renderChat(propertyId);
+}
+
+/* ---- ثبت / ویرایش ملک ---- */
+function renderNewListing() {
+  if (!requireLogin()) return;
+  renderListingForm(null);
+}
+function renderEditListing(id) {
+  if (!requireLogin()) return;
+  const p = DB.properties.find(x => x.id === id);
+  if (!p || p.ownerId !== currentUser.id) { navigate("account"); return; }
+  renderListingForm(p);
+}
+function renderListingForm(existing) {
+  const isEdit = !!existing;
+  resetNewListingImages();
+  app.innerHTML = `
+    <section class="section narrow">
+      <h2>${isEdit ? "ویرایش آگهی" : "ثبت ملک جدید"}</h2>
+      <form id="listingForm" class="form" onsubmit="event.preventDefault(); submitListing('${isEdit ? existing.id : ""}')">
+        <label>نوع ملک
+          <select id="f_type">
+            <option ${!isEdit || existing.type === "خانه" ? "selected" : ""}>خانه</option>
+            <option ${isEdit && existing.type === "زمین" ? "selected" : ""}>زمین</option>
+          </select>
+        </label>
+        <label>عنوان آگهی
+          <input id="f_title" type="text" required placeholder="مثلاً آپارتمان دو خوابه در ونک" value="${isEdit ? escapeHtml(existing.title) : ""}">
+        </label>
+        <label>قیمت (تومان)
+          <input id="f_price" type="number" min="0" required placeholder="مثلاً 5000000000" value="${isEdit ? existing.price : ""}">
+        </label>
+        <label>موقعیت / آدرس
+          <input id="f_location" type="text" required placeholder="شهر، محله" value="${isEdit ? escapeHtml(existing.location) : ""}">
+        </label>
+        <label>متراژ (متر)
+          <input id="f_area" type="number" min="0" required value="${isEdit ? existing.area : ""}">
+        </label>
+        <label>تعداد خواب (در صورت وجود)
+          <input id="f_rooms" type="number" min="0" value="${isEdit && existing.rooms ? existing.rooms : ""}">
+        </label>
+        <label>سال ساخت (در صورت وجود)
+          <input id="f_year" type="number" min="1300" max="1420" value="${isEdit && existing.yearBuilt ? existing.yearBuilt : ""}">
+        </label>
+        <div class="upload-box">
+          <h3>${isEdit ? "افزودن عکس‌های بیشتر (اختیاری)" : "آپلود عکس دلخواه ملک (اختیاری، چند عکس مجاز است)"}</h3>
+          <div class="upload-row">
+            <input id="f_image" type="file" accept="image/*" multiple onchange="handleNewListingImages(this.files)">
+          </div>
+          <p class="hint">می‌توانید هر عکسی که دوست دارید برای این ملک انتخاب کنید؛ قبل از ثبت آگهی می‌توانید آن‌ها را حذف هم بکنید.</p>
+          <div id="newImagePreview" class="gallery"></div>
+        </div>
+        <label>توضیحات
+          <textarea id="f_desc" required placeholder="ویژگی‌های مهم ملک را بنویسید">${isEdit ? escapeHtml(existing.description) : ""}</textarea>
+        </label>
+        <button class="btn primary" type="submit">${isEdit ? "ذخیره تغییرات" : "انتشار آگهی"}</button>
+        <p id="formStatus" class="hint"></p>
+        <p id="formError" class="error hidden">لطفاً همه فیلدهای الزامی را به‌درستی پر کنید.</p>
+      </form>
+    </section>`;
+}
+/* ---- پیش‌نمایش عکس‌های دلخواه در فرم ثبت ملک ---- */
+let newListingImages = [];
+function resetNewListingImages() { newListingImages = []; }
+async function handleNewListingImages(fileList) {
+  const preview = document.getElementById("newImagePreview");
+  if (!fileList || !fileList.length) return;
+  if (preview) preview.innerHTML = `<p class="hint">در حال آماده‌سازی عکس‌ها...</p>`;
+  const compressed = await compressImages(fileList);
+  newListingImages.push(...compressed);
+  document.getElementById("f_image").value = "";
+  renderNewListingPreview();
+}
+function removeNewListingImage(index) {
+  newListingImages.splice(index, 1);
+  renderNewListingPreview();
+}
+function renderNewListingPreview() {
+  const preview = document.getElementById("newImagePreview");
+  if (!preview) return;
+  if (!newListingImages.length) { preview.innerHTML = ""; return; }
+  preview.innerHTML = newListingImages.map((img, i) => `
+    <div class="gallery-item">
+      <div class="gallery-img" style="background-image:url('${img}')"></div>
+      <button type="button" class="gallery-remove" onclick="removeNewListingImage(${i})">✕</button>
+    </div>
+  `).join("");
+}
+async function submitListing(editId) {
+  const title = document.getElementById("f_title").value.trim();
+  const price = Number(document.getElementById("f_price").value);
+  const location = document.getElementById("f_location").value.trim();
+  const area = Number(document.getElementById("f_area").value);
+  const desc = document.getElementById("f_desc").value.trim();
+  if (!title || !price || !location || !area || !desc) {
+    document.getElementById("formError").classList.remove("hidden");
+    return;
+  }
+  document.getElementById("formError").classList.add("hidden");
+  const defaultImg = "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800";
+
+  const newImages = newListingImages;
+
+  const type = document.getElementById("f_type").value;
+  const rooms = Number(document.getElementById("f_rooms").value) || null;
+  const yearBuilt = Number(document.getElementById("f_year").value) || null;
+
+  if (editId) {
+    const p = DB.properties.find(x => x.id === editId);
+    if (!p || p.ownerId !== currentUser.id) return;
+    Object.assign(p, { type, title, price, location, area, rooms, yearBuilt, description: desc });
+    if (newImages.length) p.images.push(...newImages);
+    saveDB();
+    navigate("details", p.id);
+    return;
+  }
+
+  const p = {
+    id: uid("p"),
+    type, title, price, location, area, rooms, yearBuilt,
+    description: desc,
+    images: newImages.length ? newImages : [defaultImg],
+    ownerId: currentUser.id,
+    allowedUploaders: [],
+    status: "برای فروش"
+  };
+  DB.properties.unshift(p);
+  saveDB();
+  navigate("details", p.id);
+}
+function deleteListing(id) {
+  const p = DB.properties.find(x => x.id === id);
+  if (!p || p.ownerId !== currentUser.id) return;
+  if (!confirm(`آگهی «${p.title}» برای همیشه حذف شود؟ این عمل قابل بازگشت نیست.`)) return;
+  DB.properties = DB.properties.filter(x => x.id !== id);
+  DB.comments = DB.comments.filter(c => c.propertyId !== id);
+  DB.messages = DB.messages.filter(m => m.propertyId !== id);
+  saveDB();
+  navigate("account");
+}
+
+/* ---- مشاوره ---- */
+function renderConsult() {
+  if (!requireLogin()) return;
+  app.innerHTML = `
+    <section class="section narrow">
+      <h2>درخواست مشاوره از املاکی</h2>
+      <p>یکی از مشاوران ما در اسرع وقت با شما تماس می‌گیرد.</p>
+      <form class="form" onsubmit="event.preventDefault(); submitConsult()">
+        <label>شماره تماس
+          <input id="c_phone" type="text" required placeholder="۰۹xx-xxx-xxxx">
+        </label>
+        <label>موضوع درخواست
+          <textarea id="c_topic" required placeholder="مثلاً می‌خواهم برای خرید زمین در شمال مشاوره بگیرم"></textarea>
+        </label>
+        <button class="btn primary" type="submit">ارسال درخواست</button>
+      </form>
+      <div id="consultResult"></div>
+    </section>`;
+}
+function submitConsult() {
+  const phone = document.getElementById("c_phone").value.trim();
+  const topic = document.getElementById("c_topic").value.trim();
+  if (!phone || !topic) return;
+  DB.consultations.push({ id: uid("cn"), userId: currentUser.id, userName: currentUser.name, phone, topic, date: new Date().toLocaleDateString("fa-IR") });
+  saveDB();
+  document.getElementById("consultResult").innerHTML = `<p class="success">درخواست شما ثبت شد. به‌زودی با شما تماس گرفته می‌شود.</p>`;
+}
+
+/* ---- حساب کاربری ---- */
+function renderAccount() {
+  if (!requireLogin()) return;
+  const myListings = DB.properties.filter(p => p.ownerId === currentUser.id);
+  app.innerHTML = `
+    <section class="section">
+      <h2>حساب کاربری</h2>
+      <div class="account-card">
+        <p><b>${escapeHtml(currentUser.name)}</b> · ${roleLabel(currentUser.role)}</p>
+        <p>${escapeHtml(currentUser.phone || "")}</p>
+      </div>
+      <h3>آگهی‌های من</h3>
+      <div class="my-listings">
+        ${myListings.length ? myListings.map(p => `
+          <div class="my-listing-row">
+            <div class="my-listing-info" onclick="navigate('details','${p.id}')">
+              <b>${escapeHtml(p.title)}</b>
+              <span>${toman(p.price)} · ${p.images.length} عکس</span>
+            </div>
+            <div class="my-listing-actions">
+              <button class="btn ghost small" onclick="navigate('edit-listing','${p.id}')">ویرایش</button>
+              <button class="btn danger small" onclick="deleteListing('${p.id}')">حذف</button>
+            </div>
+          </div>
+        `).join("") : `<p class="empty">هنوز آگهی‌ای ثبت نکرده‌اید.</p>`}
+      </div>
+
+      <h3>گفتگوهای من</h3>
+      <div class="my-conversations">
+        ${renderMyConversations()}
+      </div>
+    </section>`;
+}
+function renderMyConversations() {
+  // ملک‌هایی که یا مالک آن‌ها هستیم یا در گفتگوی آن‌ها پیام داده‌ایم
+  const propIds = new Set([
+    ...DB.properties.filter(p => p.ownerId === currentUser.id).map(p => p.id),
+    ...DB.messages.filter(m => m.senderId === currentUser.id).map(m => m.propertyId)
+  ]);
+  const rows = [...propIds].map(pid => {
+    const p = DB.properties.find(x => x.id === pid);
+    if (!p) return null;
+    const msgs = DB.messages.filter(m => m.propertyId === pid);
+    if (!msgs.length) return null;
+    const last = msgs[msgs.length - 1];
+    return { p, last };
+  }).filter(Boolean).sort((a, b) => new Date(b.last.date) - new Date(a.last.date));
+
+  if (!rows.length) return `<p class="empty">هنوز گفتگویی وجود ندارد.</p>`;
+  return rows.map(({ p, last }) => `
+    <div class="conversation-row" onclick="requireLoginNav2('details','${p.id}','chat')">
+      <div>
+        <b>${escapeHtml(p.title)}</b>
+        <span class="hint">${escapeHtml(last.senderName)}: ${escapeHtml(last.text.slice(0, 40))}${last.text.length > 40 ? "…" : ""}</span>
+      </div>
+    </div>
+  `).join("");
+}
+function requireLoginNav2(page, propertyId, section) {
+  navigate(page, propertyId);
+  setTimeout(() => {
+    if (section === "chat") { openChat(propertyId); document.getElementById("chatBox")?.scrollIntoView({ behavior: "smooth" }); }
+  }, 150);
+}
+
+/* ---- ورود (احراز هویت ساده دمو) ---- */
+function renderLogin() {
+  app.innerHTML = `
+    <section class="section narrow">
+      <div class="auth-tabs">
+        <button class="btn small ${loginMode !== "signup" ? "primary" : "ghost"}" onclick="setLoginMode('login')">ورود</button>
+        <button class="btn small ${loginMode === "signup" ? "primary" : "ghost"}" onclick="setLoginMode('signup')">ثبت‌نام</button>
+      </div>
+      ${loginMode === "signup" ? `
+        <h2>ساخت حساب کاربری جدید</h2>
+        <form class="form" onsubmit="event.preventDefault(); doSignup()">
+          <label>نام و نام خانوادگی
+            <input id="l_name" type="text" required placeholder="مثلاً نگین رضایی">
+          </label>
+          <label>شماره تماس
+            <input id="l_phone" type="text" required placeholder="۰۹xx-xxx-xxxx">
+          </label>
+          <label>رمز عبور
+            <input id="l_password" type="password" required minlength="4" placeholder="حداقل ۴ کاراکتر">
+          </label>
+          <label>نقش
+            <select id="l_role">
+              <option value="buyer">مشتری (خریدار)</option>
+              <option value="seller">فروشنده</option>
+              <option value="agent">املاکی</option>
+            </select>
+          </label>
+          <button class="btn primary" type="submit">ساخت حساب</button>
+          <p id="loginError" class="error hidden"></p>
+        </form>` : `
+        <h2>ورود به ملک‌یاب</h2>
+        <form class="form" onsubmit="event.preventDefault(); doLogin()">
+          <label>شماره تماس
+            <input id="l_phone" type="text" required placeholder="۰۹xx-xxx-xxxx">
+          </label>
+          <label>رمز عبور
+            <input id="l_password" type="password" required placeholder="رمز عبور">
+          </label>
+          <button class="btn primary" type="submit">ورود</button>
+          <p id="loginError" class="error hidden"></p>
+        </form>`}
+    </section>`;
+}
+let loginMode = "login";
+function setLoginMode(mode) { loginMode = mode; renderLogin(); }
+function doLogin() {
+  const phone = document.getElementById("l_phone").value.trim();
+  const password = document.getElementById("l_password").value;
+  const err = document.getElementById("loginError");
+  const user = DB.users.find(u => u.phone === phone);
+  if (!user) {
+    err.textContent = "کاربری با این شماره پیدا نشد. ابتدا ثبت‌نام کنید.";
+    err.classList.remove("hidden");
+    return;
+  }
+  if (user.password !== password) {
+    err.textContent = "شماره یا رمز عبور اشتباه است.";
+    err.classList.remove("hidden");
+    return;
+  }
+  err.classList.add("hidden");
+  saveCurrentUser(user);
+  navigate("home");
+}
+function doSignup() {
+  const name = document.getElementById("l_name").value.trim();
+  const phone = document.getElementById("l_phone").value.trim();
+  const password = document.getElementById("l_password").value;
+  const role = document.getElementById("l_role").value;
+  const err = document.getElementById("loginError");
+  if (!name || !phone || password.length < 4) {
+    err.textContent = "لطفاً همه فیلدها را درست پر کنید (رمز حداقل ۴ کاراکتر).";
+    err.classList.remove("hidden");
+    return;
+  }
+  if (DB.users.find(u => u.phone === phone)) {
+    err.textContent = "این شماره قبلاً ثبت‌نام کرده. از بخش «ورود» وارد شوید.";
+    err.classList.remove("hidden");
+    return;
+  }
+  err.classList.add("hidden");
+  const user = { id: uid("u"), name, phone, password, role };
+  DB.users.push(user);
+  saveDB();
+  saveCurrentUser(user);
+  navigate("home");
+}
+
+/* ---------------- هایلایت نوار پایین ---------------- */
+function syncBottomNav() {
+  const map = {
+    "home": "bn-home",
+    "search": "bn-search",
+    "new-listing": "bn-new",
+    "consult": "bn-consult",
+    "account": "bn-account",
+    "login": null,
+    "details": null
+  };
+  document.querySelectorAll(".bottom-nav a").forEach(a => a.classList.remove("active"));
+  const id = map[route.page];
+  if (id) document.getElementById(id)?.classList.add("active");
+}
+
+/* کمکی: اگر لاگین نیست → لاگین، وگرنه → صفحه جست‌وجو با اسکرول به بخش مورد نظر */
+function requireLoginNav(page, section) {
+  if (!currentUser) { navigate("login"); return; }
+  navigate(page);
+  setTimeout(() => {
+    if (section === "chat") {
+      const el = document.querySelector(".chat-box, .actions");
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    } else if (section === "comments") {
+      const el = document.querySelector(".comments, .comment-form");
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
+  }, 200);
+}
+
+/* ---------------- شروع برنامه ---------------- */
+const _origRender = render;
+render = function() { _origRender(); syncBottomNav(); };
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("brand").addEventListener("click", () => navigate("home"));
+  document.getElementById("nav-search")?.addEventListener("click", () => navigate("search"));
+  document.getElementById("nav-new")?.addEventListener("click", () => navigate("new-listing"));
+  document.getElementById("nav-consult")?.addEventListener("click", () => navigate("consult"));
+  document.getElementById("nav-account")?.addEventListener("click", () => navigate("account"));
+  render();
+});
+
+/* ==================== PWA: نصب اپلیکیشن ==================== */
+(function setupPWA() {
+  // ---- ساخت مانیفست به‌صورت درون‌خطی (چون همه‌چیز باید در یک فایل باشد) ----
+  const iconSvg = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
+      <rect width="192" height="192" rx="36" fill="#1f7a72"/>
+      <text x="96" y="120" font-size="90" font-family="Vazirmatn, sans-serif" font-weight="800"
+            text-anchor="middle" fill="#f6f1e7">م</text>
+    </svg>`;
+  const iconUrl = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(iconSvg)));
+
+  const manifest = {
+    name: "ملک‌یاب — خرید و فروش خانه و زمین",
+    short_name: "ملک‌یاب",
+    start_url: location.href.split("#")[0],
+    scope: location.href.split("#")[0],
+    display: "standalone",
+    background_color: "#f6f1e7",
+    theme_color: "#1f7a72",
+    dir: "rtl",
+    lang: "fa",
+    icons: [
+      { src: iconUrl, sizes: "192x192", type: "image/svg+xml", purpose: "any maskable" },
+      { src: iconUrl, sizes: "512x512", type: "image/svg+xml", purpose: "any maskable" }
+    ]
+  };
+  const manifestBlob = new Blob([JSON.stringify(manifest)], { type: "application/manifest+json" });
+  document.getElementById("pwaManifest").setAttribute("href", URL.createObjectURL(manifestBlob));
+
+  // ---- ثبت سرویس‌ورکر به‌صورت درون‌خطی، برای فعال‌سازی قابلیت نصب و کارکرد آفلاین پایه ----
+  if ("serviceWorker" in navigator) {
+    const swCode = `
+      const CACHE = "melkyab-demo-v1";
+      self.addEventListener("install", (e) => { self.skipWaiting(); });
+      self.addEventListener("activate", (e) => { self.clients.claim(); });
+      self.addEventListener("fetch", (e) => {
+        e.respondWith(
+          fetch(e.request).catch(() => caches.match(e.request))
+        );
+      });
+    `;
+    const swBlob = new Blob([swCode], { type: "application/javascript" });
+    const swUrl = URL.createObjectURL(swBlob);
+    navigator.serviceWorker.register(swUrl).catch(() => {});
+  }
+
+  // ---- گرفتن رویداد نصب مرورگر و نمایش پرسش سفارشی در اولین ورود ----
+  let deferredPrompt = null;
+  const overlay = document.getElementById("installOverlay");
+
+  window.addEventListener("beforeinstallprompt", (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    const asked = localStorage.getItem("melkyab_install_asked");
+    const isStandalone = window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone;
+    if (!asked && !isStandalone) {
+      overlay.classList.remove("hidden");
+    }
+  });
+
+  window.acceptInstall = async function () {
+    overlay.classList.add("hidden");
+    localStorage.setItem("melkyab_install_asked", "1");
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      await deferredPrompt.userChoice;
+      deferredPrompt = null;
+    }
+  };
+  window.declineInstall = function () {
+    overlay.classList.add("hidden");
+    localStorage.setItem("melkyab_install_asked", "1");
+  };
+
+  window.addEventListener("appinstalled", () => {
+    overlay.classList.add("hidden");
+    localStorage.setItem("melkyab_install_asked", "1");
+  });
+})();
+
+</script>
+</body>
+</html>
